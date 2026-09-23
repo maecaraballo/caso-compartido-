@@ -30,12 +30,13 @@ opportunity: colaboracion-en-vivo-reuniones
 
 ## Por qué se sale de Teams (10 min)
 
-*Objetivo 2. Creencia de la oportunidad: no confían en que Whiteboard/notas sean lo bastante fluidas. Hipótesis nueva del research secundario: puede ser que no sepan que existe una app nativa de Miro/Mural embebida en Teams, o que IT nunca la habilitó. Se refuta la creencia original si la mayoría conoce y probó la app nativa (Whiteboard o Miro/Mural embebido), la encontró confiable, y aun así elige el link externo por otro motivo (costumbre, necesitar el board después de la reunión). Se refuta la hipótesis nueva si la mayoría conoce bien la app nativa, no hay bloqueo de IT, y aun así desconfía específicamente de su fluidez.*
+*Objetivo 2. Creencia de la oportunidad: no confían en que Whiteboard/notas sean lo bastante fluidas. Hipótesis nueva del research secundario: puede ser que no sepan que existe una app nativa de Miro/Mural embebida en Teams, que IT nunca la habilitó, o que la licencia de la herramienta externa es de otro equipo (acceso cruzado informal, no bloqueo de IT). Se refuta la creencia original si la mayoría conoce y probó la app nativa (Whiteboard o Miro/Mural embebido), la encontró confiable, y aun así elige el link externo por otro motivo (costumbre, necesitar el board después de la reunión). Se refuta la hipótesis de desconocimiento/IT si la mayoría conoce bien la app nativa, no hay bloqueo de IT ni fricción de licencia cruzada, y aun así desconfía específicamente de su fluidez.*
 
-- Cuando pasó lo que me contaste recién: ¿llegaste a probar o considerar usar Whiteboard, las notas de Teams, o abrir Miro/Mural directamente dentro de Teams (no como link, sino la app que vive adentro de la reunión)?
-  - Si probó Whiteboard/notas: contame qué pasó esa vez — ¿qué anduvo bien, qué anduvo mal?
-  - Si no lo probó: ¿sabías que existe una forma de abrir Miro o Mural directamente dentro de la ventana de la reunión, sin salir a un link? ¿Por qué no la usaste?
+- ¿Sabías que existe una forma de abrir Miro o Mural directamente dentro de la ventana de la reunión, sin salir a un link externo?
+  - Si sabía: ¿por qué no la usaste esa vez?
+  - Si no sabía: ¿por qué creés que no llegaste a enterarte de eso?
 - ¿Alguna vez pediste o necesitaste que IT habilite alguna app dentro de Teams? Contame cómo fue ese proceso.
+  - ¿La licencia de la herramienta que usan (Miro/Mural/FigJam) es de tu equipo o la comparten con otro área? ¿Cómo consiguen acceso cuando arman un board nuevo?
 - ¿Te tocó alguna vez comparar conscientemente Whiteboard o la app nativa de Miro/Mural con el link externo antes de decidir cuál usar? Contame esa vez: ¿qué pesó más en la decisión?
 
 ## Qué pasa después (7 min)
@@ -43,8 +44,8 @@ opportunity: colaboracion-en-vivo-reuniones
 *Objetivo 3. Creencia: el contenido decidido afuera no vuelve a Teams/SharePoint y queda perdido. Se refuta si el equipo tiene un mecanismo confiable para traerlo de vuelta (captura, copia a notas, etc.) que funciona bien para ellos.*
 
 - Después de esa reunión, ¿qué pasó con lo que armaron en Miro/Mural/el documento? ¿Alguien lo pasó a algún otro lado, quedó ahí, se linkeó en algún lugar?
-- Un mes después, si necesitaras encontrar esa decisión o ese contenido, ¿sabrías dónde buscarlo? Contame cómo harías.
-- ¿Te pasó alguna vez no encontrar algo que se decidió en una reunión? ¿Qué pasó?
+- ¿Te pasó alguna vez no encontrar algo que se decidió en una reunión? Contame esa vez, ¿qué pasó?
+- Si no surgió espontáneamente: un mes después de una reunión así, si necesitaras encontrar esa decisión o ese contenido, ¿sabrías dónde buscarlo? Contame cómo harías.
 
 ## Upgrade y colaboración (5 min)
 
@@ -70,3 +71,19 @@ opportunity: colaboracion-en-vivo-reuniones
   - Confirma: su empresa es sector tecnología, opera en 3+ países, factura +USD 100M/año, y tiene 100+ licencias de Teams. *Descalifica si falla cualquiera de estos.*
   - Confirma: en los últimos 3 meses, compartió o vio compartir un link a Miro/Mural/FigJam en el chat de una reunión de Teams. *Descalifica si no tiene esa experiencia reciente.*
 - **Cantidad**: apuntar a 8-12 entrevistas, priorizando primero a quienes contradicen la creencia (p. ej. alguien que probó la app nativa de Miro embebida y la encontró suficiente, o alguien que directamente no usa herramientas externas) antes que a quienes ya confirman el patrón esperado — buscar saturación de patrones, no una cuota fija.
+
+## Pretest notes (2026-09-22)
+
+Pretest ejecutado contra la persona [Ignacio Beltrán](../personas/ignacio-beltran.md) (referencia del guide). Es un chequeo de diseño de la guía, no evidencia de usuario.
+
+Cambios aplicados:
+
+- **"Por qué se sale de Teams"**: la primera pregunta mezclaba tres herramientas (Whiteboard, notas, Miro/Mural nativo) en una sola, era redundante con lo que ya se preguntaba en "Comportamiento actual" sobre Whiteboard, y su ramificación condicional ("si probó / si no probó") se rompía cuando la respuesta mezclaba las tres. Se recortó a una sola pregunta sobre la app nativa embebida, quitando la parte de Whiteboard que ya está cubierta antes.
+- **Misma sección**: se agregó un probe después de la pregunta de IT ("¿la licencia es de tu equipo o la comparten con otro área?") porque en el pretest esa pregunta reveló una causa no contemplada en el framing original del objetivo 2 — acceso cruzado a una licencia de otro equipo, ni por desconfianza en fluidez ni por bloqueo de IT. Se sumó esa tercera hipótesis a la nota del objetivo.
+- **"Qué pasa después"**: se invirtió el orden de las dos últimas preguntas — la especulativa ("si necesitaras encontrar... ¿sabrías?") pedía una predicción; ahora va después de la episódica ("¿te pasó alguna vez no encontrar algo?") y solo se usa como respaldo si no surgió un episodio espontáneo.
+
+Dejado sin cambios a propósito:
+
+- El double-barreled del warm-up ("¿cuántas convocás vos vs. a cuántas asistís?") — de baja prioridad por ser warm-up, no main body; no se tocó en esta pasada.
+- La sección de upgrade (objetivo 4), aunque corta, está diseñada para refutar la creencia de que la decisión pasa por el convocante — el pretest confirmó que el diseño funciona como se esperaba.
+- El plan de reclutamiento y el resto de la estructura no mostraron defectos en el dry-run.
