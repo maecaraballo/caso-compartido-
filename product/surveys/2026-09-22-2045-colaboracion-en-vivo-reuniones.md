@@ -1,6 +1,7 @@
 ---
 opportunity: colaboracion-en-vivo-reuniones
 date: 2026-09-22
+status: discarded
 ---
 
 # Encuesta: colaboración en vivo dentro de la reunión

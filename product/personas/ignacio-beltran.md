@@ -2,6 +2,7 @@
 
 > "Mi equipo está repartido en tres países y dos VPNs distintas — si la pizarra se cuelga para uno solo, ya perdí la reunión entera, no solo ese sticky note."
 
+- **Type:** primary
 - **Role:** Engineering Manager (Team Lead), empresa de tecnología multinacional (SaaS B2B, +USD 100M de facturación anual)
 - **Age range:** 33–40
 - **Location:** Buenos Aires, oficina híbrida — lidera equipos que también están en Ciudad de México y Austin (EE. UU.)

@@ -75,8 +75,8 @@ Registradas en [overview.md](../overview.md):
 
 ## Ideas candidatas (sin evaluar)
 
-- Notas colaborativas en tiempo real dentro del panel de reunión, al estilo Google Docs.
-- Un Whiteboard rediseñado para mayor fluidez y confianza durante la reunión en vivo.
-- Un panel lateral que embeba herramientas externas (Miro, Notion, Jira, dashboards) en vez de forzar a compartir un link en el chat.
-- Agenda editable en vivo por todos los participantes.
-- Votación o decisiones rápidas en vivo, con registro automático de lo decidido.
+- Notas colaborativas en tiempo real dentro del panel de reunión, al estilo Google Docs. — **chosen** (fusionada en A4 `ritual-cierre-plantilla`, se prueba junto a A1) · [soluciones](../solutions/2026-09-29-2155-colaboracion-en-vivo-reuniones.md)
+- Un Whiteboard rediseñado para mayor fluidez y confianza durante la reunión en vivo. — **parked** (A2 `whiteboard-confiable`) · [soluciones](../solutions/2026-09-29-2155-colaboracion-en-vivo-reuniones.md)
+- Un panel lateral que embeba herramientas externas (Miro, Notion, Jira, dashboards) en vez de forzar a compartir un link en el chat. — **parked** (A3 `apps-externas-en-reunion`) · [soluciones](../solutions/2026-09-29-2155-colaboracion-en-vivo-reuniones.md)
+- Agenda editable en vivo por todos los participantes. — **parked** (sin señal en la evidencia) · [soluciones](../solutions/2026-09-29-2155-colaboracion-en-vivo-reuniones.md)
+- Votación o decisiones rápidas en vivo, con registro automático de lo decidido. — votación **parked** (A5 `votacion-en-vivo`); el registro automático es A1 `cierre-decisiones-asistido`, **chosen** · [soluciones](../solutions/2026-09-29-2155-colaboracion-en-vivo-reuniones.md)
