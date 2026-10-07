@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lista de decisiones de la reunión</title>
+<!--
+  T2 · cierre-decisiones-asistido — formulario de confirmación (concierge).
+  Una sola página, sin dependencias. Hace SOLO esto:
+    1) muestra la lista "decisión · responsable · fecha" de UNA reunión;
+    2) deja confirmarla tal cual o editarla / quitar ítems;
+    3) registra apertura, confirmación, ítems editados y ítems totales.
+  No resume la reunión, no crea tareas, no se integra con Teams.
+
+  Antes de correr el test: completar ENDPOINT (ver 01-guion-concierge.md, "Antes de empezar").
+  Uso: operador → abrir este archivo con #operador al final, pegar la lista y copiar el enlace.
+-->
+<style>
+  :root { --bg:#fafaf8; --fg:#1f2328; --mut:#656d76; --line:#d8dce0; --ac:#1f6feb; --warn:#9a6700; }
+  @media (prefers-color-scheme: dark) { :root { --bg:#16181b; --fg:#e6e8ea; --mut:#9aa3ad; --line:#363b41; --ac:#58a6ff; --warn:#d4a72c; } }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--fg); font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif; }
+  main { max-width:760px; margin:0 auto; padding:24px 16px 64px; }
+  h1 { font-size:1.25rem; margin:0 0 4px; }
+  p.sub { color:var(--mut); margin:0 0 20px; }
+  .banner { border:1px solid var(--warn); color:var(--warn); padding:8px 12px; border-radius:8px; margin-bottom:16px; font-size:.9rem; }
+  .item { border:1px solid var(--line); border-radius:10px; padding:12px; margin-bottom:12px; }
+  .item.quitado { opacity:.5; }
+  .item.quitado textarea, .item.quitado input { text-decoration:line-through; }
+  label { display:block; font-size:.8rem; color:var(--mut); margin:8px 0 2px; }
+  label:first-child { margin-top:0; }
+  textarea, input[type=text] { width:100%; font:inherit; color:inherit; background:transparent; border:1px solid var(--line); border-radius:6px; padding:8px; }
+  textarea { resize:vertical; min-height:56px; }
+  .row { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  @media (max-width:520px) { .row { grid-template-columns:1fr; } }
+  .quitar { margin-top:10px; font-size:.85rem; color:var(--mut); display:flex; gap:6px; align-items:center; }
+  button { font:inherit; border-radius:8px; padding:10px 18px; border:1px solid var(--ac); background:var(--ac); color:#fff; cursor:pointer; }
+  button.sec { background:transparent; color:var(--ac); }
+  button:disabled { opacity:.5; cursor:default; }
+  .acciones { display:flex; gap:12px; align-items:center; margin-top:8px; flex-wrap:wrap; }
+  .hecho { border:1px solid var(--line); border-radius:10px; padding:16px; }
+  pre, textarea.out { white-space:pre-wrap; }
+  [hidden] { display:none !important; }
+</style>
+</head>
+<body>
+<main>
+
+<!-- VISTA DEL OPERADOR -->
+<section id="vista-operador" hidden>
+  <h1>Operador: armar el enlace de una reunión</h1>
+  <p class="sub">Pegá la salida de la IA sin tocarla, una línea por ítem: <code>decisión | responsable | fecha</code>.</p>
+  <label for="op-id">ID de la reunión (ej. TL3-R2)</label>
+  <input type="text" id="op-id">
+  <label for="op-lista">Lista</label>
+  <textarea id="op-lista" rows="8" placeholder="Migrar el servicio de pagos a la nueva API | Ana | 15/11&#10;Congelar cambios de la release 4.2 | Luis | 12/11"></textarea>
+  <div class="acciones">
+    <button id="op-generar" type="button">Generar enlace</button>
+  </div>
+  <label for="op-enlace">Enlace para el Team Lead</label>
+  <textarea id="op-enlace" class="out" rows="3" readonly></textarea>
+  <div class="acciones"><button id="op-copiar" class="sec" type="button">Copiar enlace</button><span id="op-msg" class="sub"></span></div>
+</section>
+
+<!-- VISTA DEL PARTICIPANTE -->
+<section id="vista-participante" hidden>
+  <div id="demo" class="banner" hidden>EJEMPLO con datos ficticios. No se registra nada.</div>
+  <h1>Lo que se decidió en la reunión</h1>
+  <p class="sub">Revisá la lista. Si está bien, confirmala; si no, editá lo que haga falta o quitá lo que no corresponda.</p>
+  <form id="form" autocomplete="off">
+    <div id="items"></div>
+    <div class="acciones">
+      <button id="confirmar" type="submit">Confirmar lista</button>
+    </div>
+  </form>
+  <div id="hecho" class="hecho" hidden>
+    <strong>Lista confirmada.</strong>
+    <p class="sub">Esta es la versión final. Podés copiarla y usarla como aviso al equipo.</p>
+    <textarea id="final" class="out" rows="6" readonly></textarea>
+    <div class="acciones"><button id="copiar" class="sec" type="button">Copiar lista</button><span id="copiado" class="sub"></span></div>
+  </div>
+</section>
+
+</main>
+<script>
+"use strict";
+/* ===== Configuración (completar antes de correr) ===== */
+const ENDPOINT = "";   // URL que recibe el registro (POST, JSON como texto). Vacío = no se registra.
+
+/* ===== Utilidades ===== */
+const $ = (s) => document.querySelector(s);
+function b64e(o){ const b=new TextEncoder().encode(JSON.stringify(o)); let s=""; b.forEach(c=>s+=String.fromCharCode(c)); return btoa(s).replace(/\+/g,"-").replace(/\//g,"_").replace(/=+$/,""); }
+function b64d(t){ t=t.replace(/-/g,"+").replace(/_/g,"/"); while(t.length%4) t+="="; const s=atob(t); return JSON.parse(new TextDecoder().decode(Uint8Array.from(s,c=>c.charCodeAt(0)))); }
+function ls(op,k,v){ try { return op==="get" ? localStorage.getItem(k) : localStorage.setItem(k,v); } catch(e){ return null; } }
+const norm = (x) => (x||"").trim().replace(/\s+/g," ");
+const fmt = (it) => `• ${norm(it.d)} — ${norm(it.r)||"sin responsable"} — ${norm(it.f)||"sin fecha"}`;
+
+/* ===== Ruteo por hash ===== */
+const hash = location.hash.slice(1);
+if (hash === "operador") {
+  $("#vista-operador").hidden = false;
+  $("#op-generar").onclick = () => {
+    const m = norm($("#op-id").value);
+    const items = $("#op-lista").value.split("\n").map(l => l.trim()).filter(Boolean).map(l => {
+      const p = l.split("|").map(x => x.trim()); return { d:p[0]||"", r:p[1]||"", f:p[2]||"" };
+    });
+    if (!m || !items.length) { $("#op-msg").textContent = "Falta el ID o la lista."; return; }
+    $("#op-enlace").value = location.href.split("#")[0] + "#d=" + b64e({ m, i: items });
+    $("#op-msg").textContent = "";
+  };
+  $("#op-copiar").onclick = async () => {
+    const t = $("#op-enlace").value; if (!t) return;
+    try { await navigator.clipboard.writeText(t); $("#op-msg").textContent = "Copiado."; } catch(e) { $("#op-enlace").select(); $("#op-msg").textContent = "Copialo a mano."; }
+  };
+} else {
+  $("#vista-participante").hidden = false;
+  let data, demo = false;
+  if (hash.startsWith("d=")) { try { data = b64d(hash.slice(2)); } catch(e) {} }
+  if (!data || !Array.isArray(data.i)) {
+    demo = true;
+    data = { m:"EJEMPLO", i:[
+      { d:"[Ficticio] Mover la demo del cliente al jueves", r:"Persona A", f:"jueves" },
+      { d:"[Ficticio] Revisar el presupuesto antes del cierre", r:"Persona B", f:"fin de mes" } ] };
+    $("#demo").hidden = false;
+  }
+  const original = data.i.map(x => ({ d:x.d||"", r:x.r||"", f:x.f||"" }));
+  const openKey = "t2-abierto-" + data.m;
+  let abierto = ls("get", openKey);                     // primera apertura, aunque recargue
+  if (!abierto || demo) { abierto = new Date().toISOString(); if (!demo) ls("set", openKey, abierto); }
+
+  const cont = $("#items");
+  original.forEach((it, n) => {
+    const el = document.createElement("div"); el.className = "item"; el.dataset.n = n;
+    el.innerHTML =
+      `<label>Decisión</label><textarea data-k="d"></textarea>
+       <div class="row"><div><label>Responsable</label><input type="text" data-k="r"></div>
+       <div><label>Fecha</label><input type="text" data-k="f"></div></div>
+       <label class="quitar"><input type="checkbox" data-q> Quitar este ítem</label>`;
+    el.querySelector('[data-k="d"]').value = it.d;
+    el.querySelector('[data-k="r"]').value = it.r;
+    el.querySelector('[data-k="f"]').value = it.f;
+    el.querySelector("[data-q]").onchange = (e) => el.classList.toggle("quitado", e.target.checked);
+    cont.appendChild(el);
+  });
+
+  function leer() {
+    return [...cont.children].map((el, n) => ({
+      d: el.querySelector('[data-k="d"]').value, r: el.querySelector('[data-k="r"]').value,
+      f: el.querySelector('[data-k="f"]').value, quitado: el.querySelector("[data-q]").checked }));
+  }
+
+  $("#form").onsubmit = (ev) => {
+    ev.preventDefault();
+    const confirmado = new Date().toISOString();
+    const actual = leer();
+    let editados = 0, quitados = 0;
+    actual.forEach((a, n) => {
+      const o = original[n];
+      const cambio = a.quitado || norm(a.d)!==norm(o.d) || norm(a.r)!==norm(o.r) || norm(a.f)!==norm(o.f);
+      if (a.quitado) quitados++;
+      if (cambio) editados++;
+    });
+    const finales = actual.filter(a => !a.quitado);
+    const registro = {
+      reunion: data.m, abierto_en: abierto, confirmado_en: confirmado,
+      segundos_hasta_confirmar: Math.round((new Date(confirmado) - new Date(abierto)) / 1000),
+      items_total: original.length, items_editados: editados, items_quitados: quitados,
+      items_original: original, items_final: finales.map(({d,r,f}) => ({d,r,f}))
+    };
+    if (!demo && ENDPOINT) {
+      fetch(ENDPOINT, { method:"POST", mode:"no-cors", headers:{ "Content-Type":"text/plain" }, body: JSON.stringify(registro) }).catch(()=>{});
+    }
+    $("#confirmar").disabled = true;
+    cont.querySelectorAll("textarea,input").forEach(x => x.disabled = true);
+    $("#final").value = finales.map(fmt).join("\n");
+    $("#hecho").hidden = false;
+  };
+  $("#copiar").onclick = async () => {
+    try { await navigator.clipboard.writeText($("#final").value); $("#copiado").textContent = "Copiada."; }
+    catch(e) { $("#final").select(); $("#copiado").textContent = "Copiala a mano."; }
+  };
+}
+</script>
+</body>
+</html>

@@ -2,6 +2,7 @@
 opportunity: colaboracion-en-vivo-reuniones
 status: testing-several
 chosen: cierre-decisiones-asistido, ritual-cierre-plantilla
+tests: product/tests/2026-10-06-2052-decisiones-sin-registro.md
 ---
 
 # Solutions for: falta de confianza en la colaboración en vivo dentro de la reunión
@@ -54,8 +55,7 @@ A1 es la única con `strong` y con más citas que las demás, pero la encuesta (
 Maru eligió probar **A1 y A4 en paralelo** (`testing-several`), que coincide con la recomendación, así que no se registra entrada en `product/corrections.md`.
 
 - **Razones de la recomendación:** el registro de lo decidido es el hueco más grande y aparece hasta en quien no usa herramientas externas; A1 toca a los tres tipos de usuario (tablero, Jira/Confluence y solo hablar) y apunta a IA y recaps, donde hoy se vende el plan superior. A4 es la prueba barata de si el fallo es de práctica o de herramienta.
-- **Test de A1:** consulta a tech antes de construir: precisión para separar decidido de comentado en reuniones de 8+, creación de tareas y restricciones de privacidad. Resuelve `[feature: cierre-decisiones-asistido] [feasibility]`.
-- **Test de A4:** 4 semanas con 8–10 Team Leads del pool de reclutamiento de la encuesta (54 candidatos con contacto). Resuelve `[feature: ritual-cierre-plantilla] [value]`.
+- **Tests de A1 y A4:** son los mismos que B1 y B2 de `product/solutions/2026-09-29-2205-decisiones-sin-registro.md`: T1 y T2 para A1, T3 para A4. Diseñados en [tests](../tests/2026-10-06-2052-decisiones-sin-registro.md).
 - **Regla de decisión:** si A4 alcanza (la usan en ≥4 de 5 reuniones y baja el retrabajo), A1 se posterga. Si la abandonan en 2 semanas por el esfuerzo de escribir mientras moderan, A1 gana.
 - **Qué cambiaría el rumbo:** si tech dice que Copilot no separa decidido de comentado con precisión razonable, A4 pasa a ser la apuesta y A1 a `parked`; si Ventas muestra que "colaboración" en las renovaciones de Max significa co-crear y no cerrar, sube A2; si `[value]` pasa a `contradicted`, vuelta a investigar.
 

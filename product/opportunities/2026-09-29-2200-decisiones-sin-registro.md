@@ -72,9 +72,9 @@ Ninguna coincide con una ya registrada. Relacionadas, sin duplicar: la #3 del pr
 
 Son el punto de partida de `/explore-solutions`, no una lista corta:
 
-- Cierre de decisiones asistido: la IA propone decisión, responsable y fecha, y quien convoca confirma (A1 en `product/solutions/2026-09-29-2155-colaboracion-en-vivo-reuniones.md`).
-- Ritual de cierre más plantilla de decisiones en las Notas de la reunión (A4 del mismo archivo).
-- Registro de decisiones por equipo o canal, buscable, tipo ADR (lo que Ricardo hace "a veces").
-- Publicar lo decidido a quienes no estuvieron, con la tarea creada (caso Diego: marketing de Chile esperaba el correo).
+- Cierre de decisiones asistido: la IA propone decisión, responsable y fecha, y quien convoca confirma (A1 en `product/solutions/2026-09-29-2155-colaboracion-en-vivo-reuniones.md`). — **chosen** (B1 `cierre-decisiones-asistido`, en prueba) · [soluciones](../solutions/2026-09-29-2205-decisiones-sin-registro.md)
+- Ritual de cierre más plantilla de decisiones en las Notas de la reunión (A4 del mismo archivo). — **chosen** (B2 `ritual-cierre-plantilla`, en prueba) · [soluciones](../solutions/2026-09-29-2205-decisiones-sin-registro.md)
+- Registro de decisiones por equipo o canal, buscable, tipo ADR (lo que Ricardo hace "a veces"). — **parked** (B3 `registro-decisiones-equipo`) · [soluciones](../solutions/2026-09-29-2205-decisiones-sin-registro.md)
+- Publicar lo decidido a quienes no estuvieron, con la tarea creada (caso Diego: marketing de Chile esperaba el correo). — **parked** (B4 `publicar-lo-decidido`) · [soluciones](../solutions/2026-09-29-2205-decisiones-sin-registro.md)
 
 A1 y A4 ya se compararon dentro de la otra oportunidad, pero no contra este alcance ampliado.
