@@ -89,6 +89,8 @@ Explored in: `product/solutions/2026-09-29-2205-decisiones-sin-registro.md` (y A
 - B5 decidir en reuniones chicas — parked: n=2 y viabilidad débil.
 
 ## Tested before spec
+Metrics: `product/metrics/2026-10-20-2041-cierre-decisiones-asistido.md` (Nivel 1)
+
 Tested in: `product/tests/2026-10-06-2052-decisiones-sin-registro.md`
 - T1 precisión del cierre sobre ≥20 reuniones reales — designed, no corrido · creencia 8 (`feasibility`)
 - T2 confirmación en ≤2 min y fin de la reescritura (concierge, 6 Team Leads) — designed, no corrido (se corre solo si T1 pasa) · creencia 9 (`value`)
